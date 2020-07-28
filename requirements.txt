@@ -1,0 +1,4 @@
+pynput==1.6.8
+pypiwin32==223
+pywin32==228
+six==1.15.0
