@@ -14,8 +14,12 @@ def update_console():
 
 def open_directory(display, path, position):
     items = []
-    for item in path.iterdir():
-        items.append(item)
+    try:
+        directory_iterator = path.iterdir()
+        for item in directory_iterator:
+            items.append(item)
+    except Exception as exception:
+        print('\n  ERROR: {0}'.format(exception.args))
     display.print(str(path), items, position)
 
 
