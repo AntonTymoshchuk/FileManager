@@ -1,7 +1,6 @@
 import sys
-import common
+from modules import common, displaying
 import pathlib
-import displaying
 
 if __name__ == '__main__':
     if len(sys.argv) > 2:

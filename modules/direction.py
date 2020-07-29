@@ -20,7 +20,6 @@ class Director:
         pass
 
     def __init__(self, selector):
-        print('__init__')
         self.selector = selector
         self.listener = Listener(self.on_press, self.on_release)
         self.started = False

@@ -1,8 +1,6 @@
-import common
+from modules import common, direction
 import pathlib
-import win32api
 import platform
-import direction
 
 
 class Selector:
@@ -67,6 +65,7 @@ class Selector:
         elif len(parents) == 1:
             self.position = -1
             if platform.system() == 'Windows':
+                import win32api
                 drives_string = win32api.GetLogicalDriveStrings()
                 drive_names = drives_string.split('\000')
                 del drive_names[-1:]

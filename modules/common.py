@@ -1,6 +1,5 @@
 import os
 import platform
-import displaying
 
 
 def update_console():
@@ -10,6 +9,7 @@ def update_console():
         os.system('clear')
     elif platform.system() == 'Darwin':
         os.system('clear')
+    print('\n  FileManager')
 
 
 def open_directory(display, path, position):

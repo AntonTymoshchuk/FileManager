@@ -1,5 +1,4 @@
-import common
-import selection
+from modules import common, selection
 
 
 class Display:
