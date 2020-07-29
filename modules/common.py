@@ -17,9 +17,9 @@ def open_directory(display, path, position):
         directory_iterator = path.iterdir()
         for item in directory_iterator:
             items.append(item)
+        display.print(str(path), items, position)
     except Exception as exception:
-        print('\nERROR: {0}'.format(exception.args))
-    display.print(str(path), items, position)
+        print(exception.args[1])
 
 
 def show_partitions(display, drives, position, names):

@@ -1,4 +1,5 @@
 from modules import common, selection
+import os
 
 
 class Display:
@@ -25,19 +26,20 @@ class Display:
             if self.names is None:
                 while i < len(self.items):
                     if self.items[i].is_dir():
-                        print('d {0} {1}'.format(self.selector.selection_list[i], self.items[i].name))
+                        print('D {0} {1}'.format(self.selector.selection_list[i], self.items[i].name))
                     else:
                         print('F {0} {1}'.format(self.selector.selection_list[i], self.items[i].name))
                     i += 1
             else:
                 while i < len(self.names):
                     if self.items[i].is_dir():
-                        print('d {0} {1}'.format(self.selector.selection_list[i], self.names[i]))
+                        print('P {0} {1}'.format(self.selector.selection_list[i], self.names[i]))
                     else:
-                        print('F {0} {1}'.format(self.selector.selection_list[i], self.names[i]))
+                        print('P {0} {1}'.format(self.selector.selection_list[i], self.names[i]))
                     i += 1
         else:
             print('Empty')
+        print('\n{0}>'.format(os.getcwd()), end='')
         self.selector.director.start_directing()
 
     def update(self):
@@ -47,14 +49,15 @@ class Display:
         if self.names is None:
             while i < len(self.items):
                 if self.items[i].is_dir():
-                    print('d {0} {1}'.format(self.selector.selection_list[i], self.items[i].name))
+                    print('D {0} {1}'.format(self.selector.selection_list[i], self.items[i].name))
                 else:
                     print('F {0} {1}'.format(self.selector.selection_list[i], self.items[i].name))
                 i += 1
         else:
             while i < len(self.names):
                 if self.items[i].is_dir():
-                    print('d {0} {1}'.format(self.selector.selection_list[i], self.names[i]))
+                    print('P {0} {1}'.format(self.selector.selection_list[i], self.names[i]))
                 else:
-                    print('F {0} {1}'.format(self.selector.selection_list[i], self.names[i]))
+                    print('P {0} {1}'.format(self.selector.selection_list[i], self.names[i]))
                 i += 1
+        print('\n{0}>'.format(os.getcwd()), end='')
