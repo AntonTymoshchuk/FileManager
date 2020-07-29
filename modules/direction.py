@@ -9,9 +9,9 @@ class Director:
             self.selector.move_down()
         elif key == Key.up:
             self.selector.move_up()
-        elif key == Key.enter:
+        elif key == Key.right:
             self.selector.move_in()
-        elif key == Key.esc:
+        elif key == Key.left:
             self.selector.move_out()
 
     def on_release(self, key):

@@ -9,7 +9,6 @@ def update_console():
         os.system('clear')
     elif platform.system() == 'Darwin':
         os.system('clear')
-    print('\n  FileManager')
 
 
 def open_directory(display, path, position):
@@ -19,7 +18,7 @@ def open_directory(display, path, position):
         for item in directory_iterator:
             items.append(item)
     except Exception as exception:
-        print('\n  ERROR: {0}'.format(exception.args))
+        print('\nERROR: {0}'.format(exception.args))
     display.print(str(path), items, position)
 
 

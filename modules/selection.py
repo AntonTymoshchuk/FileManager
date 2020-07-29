@@ -48,10 +48,11 @@ class Selector:
         return True
 
     def move_in(self):
-        if not self.display.items[self.position].is_dir():
-            common.run_file(str(self.display.items[self.position]))
-        else:
-            common.open_directory(self.display, self.display.items[self.position], 0)
+        if len(self.display.items) > 0:
+            if not self.display.items[self.position].is_dir():
+                common.run_file(str(self.display.items[self.position]))
+            else:
+                common.open_directory(self.display, self.display.items[self.position], 0)
 
     def move_out(self):
         if not self.display.showing_partitions:
