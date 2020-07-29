@@ -9,18 +9,21 @@ def update_console():
         os.system('clear')
     elif platform.system() == 'Darwin':
         os.system('clear')
-    print('\n  FileManager')
 
 
 def open_directory(display, path, position):
     items = []
-    for item in path.iterdir():
-        items.append(item)
+    try:
+        directory_iterator = path.iterdir()
+        for item in directory_iterator:
+            items.append(item)
+    except Exception as exception:
+        print('\nERROR: {0}'.format(exception.args))
     display.print(str(path), items, position)
 
 
-def show_drives(display, drives, position, names):
-    display.print('Drives', drives, position, names)
+def show_partitions(display, drives, position, names):
+    display.print('Partitions', drives, position, names)
 
 
 def run_file(file_path):

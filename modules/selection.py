@@ -12,9 +12,10 @@ class Selector:
 
     def create_selection(self, position):
         self.selection_list.clear()
-        self.selection_list = [' '] * len(self.display.items)
         self.position = position
-        self.selection_list[self.position] = '>'
+        if len(self.display.items) > 0:
+            self.selection_list = [' '] * len(self.display.items)
+            self.selection_list[self.position] = '>'
 
     def can_move_down(self):
         if self.position < len(self.selection_list) - 1:
@@ -47,37 +48,45 @@ class Selector:
         return True
 
     def move_in(self):
-        if not self.display.items[self.position].is_dir():
-            common.run_file(str(self.display.items[self.position]))
-        else:
-            common.open_directory(self.display, self.display.items[self.position], 0)
+        if len(self.display.items) > 0:
+            if not self.display.items[self.position].is_dir():
+                common.run_file(str(self.display.items[self.position]))
+            else:
+                common.open_directory(self.display, self.display.items[self.position], 0)
 
     def move_out(self):
-        parents = self.display.items[self.position].parents
-        if len(parents) > 1:
-            self.position = -1
-            grand_parent_path = pathlib.Path(str(parents[1]))
-            for parent_level_item in grand_parent_path.iterdir():
-                self.position += 1
-                if str(parent_level_item) == str(parents[0]):
-                    break
-            common.open_directory(self.display, grand_parent_path, self.position)
-        elif len(parents) == 1:
-            self.position = -1
-            if platform.system() == 'Windows':
-                import win32api
-                drives_string = win32api.GetLogicalDriveStrings()
-                drive_names = drives_string.split('\000')
-                del drive_names[-1:]
-                drive_paths = []
-                for drive_name in drive_names:
+        if not self.display.showing_partitions:
+            path = pathlib.Path(self.display.title)
+            parents = path.parents
+            if len(parents) > 0:
+                self.position = -1
+                parent_path = pathlib.Path(str(parents[0]))
+                for parent_item in parent_path.iterdir():
                     self.position += 1
-                    if drive_name == str(parents[0]):
+                    if str(parent_item) == self.display.title:
                         break
-                for drive_name in drive_names:
-                    drive_paths.append(pathlib.Path(drive_name))
-                common.show_drives(self.display, drive_paths, self.position, drive_names)
-            elif platform.system() == 'Linux':
-                pass
-            elif platform.system() == 'Darwin':
-                pass
+                common.open_directory(self.display, parent_path, self.position)
+            else:
+                self.position = -1
+                partition_paths = []
+                partition_names = []
+                if platform.system() == 'Windows':
+                    import win32api
+                    partitions_string = win32api.GetLogicalDriveStrings()
+                    partition_names = partitions_string.split('\000')
+                    del partition_names[-1:]
+                elif platform.system() == 'Linux':
+                    import psutil
+                    partition_tuples_list = psutil.disk_partitions(True)
+                    for partition_tuple in partition_tuples_list:
+                        partition_names.append(partition_tuple[1])
+                elif platform.system() == 'Darwin':
+                    import os
+                    print(os.listdir('/Volumes'))
+                for partition_name in partition_names:
+                    self.position += 1
+                    if partition_name == self.display.title:
+                        break
+                for partition_name in partition_names:
+                    partition_paths.append(pathlib.Path(partition_name))
+                common.show_partitions(self.display, partition_paths, self.position, partition_names)
