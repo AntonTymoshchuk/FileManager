@@ -37,7 +37,7 @@ class Display:
                         print('F {0} {1}'.format(self.selector.selection_list[i], self.names[i]))
                     i += 1
         else:
-            print('  Empty')
+            print('Empty')
         self.selector.director.start_directing()
 
     def update(self):
