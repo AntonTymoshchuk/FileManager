@@ -76,7 +76,7 @@ class Selector:
                     if drive_name == str(parents[0]):
                         break
                 for drive_name in drive_names:
-                    drive_paths.append(pathlib.WindowsPath(drive_name))
+                    drive_paths.append(pathlib.Path(drive_name))
                 common.show_drives(self.display, drive_paths, self.position, drive_names)
             elif platform.system() == 'Linux':
                 pass
