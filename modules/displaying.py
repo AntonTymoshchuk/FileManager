@@ -1,4 +1,4 @@
-from modules import common, selection
+from modules import common, selection, control
 import os
 
 
@@ -9,6 +9,8 @@ class Display:
         self.names = None
         self.showing_partitions = False
         self.selector = selection.Selector(self)
+        self.controller = control.Controller(self)
+        self.controller.start()
 
     def print(self, title, items, position, names=None):
         common.update_console()

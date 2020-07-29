@@ -19,7 +19,7 @@ def open_directory(display, path, position):
             items.append(item)
         display.print(str(path), items, position)
     except Exception as exception:
-        print(exception.args[1])
+        print(exception.args)
 
 
 def show_partitions(display, drives, position, names):

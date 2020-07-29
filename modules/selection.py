@@ -59,15 +59,16 @@ class Selector:
             path = pathlib.Path(self.display.title)
             parents = path.parents
             if len(parents) > 0:
-                self.position = -1
                 parent_path = pathlib.Path(str(parents[0]))
+                self.position = 0
+                i = self.position
                 for parent_item in parent_path.iterdir():
-                    self.position += 1
                     if str(parent_item) == self.display.title:
+                        self.position = i
                         break
+                    i += 1
                 common.open_directory(self.display, parent_path, self.position)
             else:
-                self.position = -1
                 partition_paths = []
                 partition_names = []
                 if platform.system() == 'Windows':
@@ -83,10 +84,13 @@ class Selector:
                 elif platform.system() == 'Darwin':
                     import os
                     print(os.listdir('/Volumes'))
+                self.position = 0
+                i = self.position
                 for partition_name in partition_names:
-                    self.position += 1
                     if partition_name == self.display.title:
+                        self.position = i
                         break
+                    i += 1
                 for partition_name in partition_names:
                     partition_paths.append(pathlib.Path(partition_name))
                 common.show_partitions(self.display, partition_paths, self.position, partition_names)
