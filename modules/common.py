@@ -19,8 +19,8 @@ def open_directory(display, path, position):
     display.print(str(path), items, position)
 
 
-def show_drives(display, drives, position, names):
-    display.print('Drives', drives, position, names)
+def show_partitions(display, drives, position, names):
+    display.print('Partitions', drives, position, names)
 
 
 def run_file(file_path):

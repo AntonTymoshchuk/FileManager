@@ -64,20 +64,25 @@ class Selector:
             common.open_directory(self.display, grand_parent_path, self.position)
         elif len(parents) == 1:
             self.position = -1
+            partition_paths = []
+            partition_names = []
             if platform.system() == 'Windows':
                 import win32api
-                drives_string = win32api.GetLogicalDriveStrings()
-                drive_names = drives_string.split('\000')
-                del drive_names[-1:]
-                drive_paths = []
-                for drive_name in drive_names:
-                    self.position += 1
-                    if drive_name == str(parents[0]):
-                        break
-                for drive_name in drive_names:
-                    drive_paths.append(pathlib.Path(drive_name))
-                common.show_drives(self.display, drive_paths, self.position, drive_names)
+                partitions_string = win32api.GetLogicalDriveStrings()
+                partition_names = partitions_string.split('\000')
+                del partition_names[-1:]
             elif platform.system() == 'Linux':
-                pass
+                import psutil
+                partition_tuples_list = psutil.disk_partitions(True)
+                for partition_tuple in partition_tuples_list:
+                    partition_names.append(partition_tuple[1])
             elif platform.system() == 'Darwin':
-                pass
+                import os
+                print(os.listdir('/Volumes'))
+            for partition_name in partition_names:
+                self.position += 1
+                if partition_name == str(parents[0]):
+                    break
+            for partition_name in partition_names:
+                partition_paths.append(pathlib.Path(partition_name))
+            common.show_partitions(self.display, partition_paths, self.position, partition_names)
