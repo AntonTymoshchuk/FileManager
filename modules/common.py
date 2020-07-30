@@ -11,19 +11,25 @@ def update_console():
         os.system('clear')
 
 
+def sort_items_by_name(items):
+    items.sort(key=lambda sorted_item: sorted_item.name.lower())
+
+
 def open_directory(display, path, position):
     items = []
     try:
         directory_iterator = path.iterdir()
         for item in directory_iterator:
             items.append(item)
+        sort_items_by_name(items)
         display.print(str(path), items, position)
     except Exception as exception:
-        print(exception.args)
+        print(exception.args[1])
 
 
-def show_partitions(display, drives, position, names):
-    display.print('Partitions', drives, position, names)
+def show_partitions(display, partitions, position, names):
+    names.sort(key=lambda p_name: p_name.lower())
+    display.print('Partitions', partitions, position, names)
 
 
 def run_file(file_path):

@@ -60,9 +60,13 @@ class Selector:
             parents = path.parents
             if len(parents) > 0:
                 parent_path = pathlib.Path(str(parents[0]))
+                parent_items = []
+                for parent_item in parent_path.iterdir():
+                    parent_items.append(parent_item)
+                common.sort_items_by_name(parent_items)
                 self.position = 0
                 i = self.position
-                for parent_item in parent_path.iterdir():
+                for parent_item in parent_items:
                     if str(parent_item) == self.display.title:
                         self.position = i
                         break
@@ -84,6 +88,9 @@ class Selector:
                 elif platform.system() == 'Darwin':
                     import os
                     print(os.listdir('/Volumes'))
+                partition_names.sort(key=lambda p_name: p_name.lower())
+                for partition_name in partition_names:
+                    partition_paths.append(pathlib.Path(partition_name))
                 self.position = 0
                 i = self.position
                 for partition_name in partition_names:
@@ -91,6 +98,4 @@ class Selector:
                         self.position = i
                         break
                     i += 1
-                for partition_name in partition_names:
-                    partition_paths.append(pathlib.Path(partition_name))
                 common.show_partitions(self.display, partition_paths, self.position, partition_names)
