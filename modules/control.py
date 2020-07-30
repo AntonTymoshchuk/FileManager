@@ -12,14 +12,15 @@ class Controller(threading.Thread):
     def run(self):
         while True:
             self.check_if_current_directory_exists()
-            time.sleep(1)
+            time.sleep(0.1)
         pass
 
     def check_if_current_directory_exists(self):
-        if not self.display.showing_partitions and self.display.title is not None:
+        if not self.display.partitions and self.display.title is not None:
             path = pathlib.Path(self.display.title)
             if not path.exists():
                 for parent in path.parents:
                     if parent.exists():
                         self.display.title = str(parent)
+                        break
                 self.display.selector.move_out()

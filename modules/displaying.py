@@ -7,7 +7,7 @@ class Display:
         self.title = None
         self.items = []
         self.names = None
-        self.showing_partitions = False
+        self.partitions = False
         self.selector = selection.Selector(self)
         self.controller = control.Controller(self)
         self.controller.start()
@@ -19,9 +19,9 @@ class Display:
         self.names = names
         self.selector.create_selection(position)
         if names is not None:
-            self.showing_partitions = True
+            self.partitions = True
         else:
-            self.showing_partitions = False
+            self.partitions = False
         print('{0}\n'.format(self.title))
         if len(self.items) > 0:
             i = 0

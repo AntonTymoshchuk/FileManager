@@ -55,7 +55,7 @@ class Selector:
                 common.open_directory(self.display, self.display.items[self.position], 0)
 
     def move_out(self):
-        if not self.display.showing_partitions:
+        if not self.display.partitions:
             path = pathlib.Path(self.display.title)
             parents = path.parents
             if len(parents) > 0:
