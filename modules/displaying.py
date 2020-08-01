@@ -1,5 +1,4 @@
-from modules import common, selection, control
-import os
+from modules import common, selection, controlling
 
 
 class Display:
@@ -9,7 +8,7 @@ class Display:
         self.names = None
         self.partitions = False
         self.selector = selection.Selector(self)
-        self.controller = control.Controller(self)
+        self.controller = controlling.Controller(self)
         self.controller.start()
 
     def print(self, title, items, position, names=None):
@@ -41,7 +40,7 @@ class Display:
                     i += 1
         else:
             print('Empty')
-        print('\n{0}>'.format(os.getcwd()), end='')
+        print('\n', end='')
         self.selector.director.start_directing()
 
     def update(self):
@@ -62,4 +61,4 @@ class Display:
                 else:
                     print('P {0} {1}'.format(self.selector.selection_list[i], self.names[i]))
                 i += 1
-        print('\n{0}>'.format(os.getcwd()), end='')
+        print('\n', end='')

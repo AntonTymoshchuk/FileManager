@@ -1,5 +1,4 @@
 from pynput.keyboard import Key, Listener
-import sys
 
 
 class Director:
@@ -9,9 +8,9 @@ class Director:
             self.selector.move_down()
         elif key == Key.up:
             self.selector.move_up()
-        elif key == Key.right:
+        elif key == Key.enter:
             self.selector.move_in()
-        elif key == Key.left:
+        elif key == Key.esc:
             self.selector.move_out()
 
     def on_release(self, key):

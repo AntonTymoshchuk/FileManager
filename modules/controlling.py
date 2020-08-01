@@ -16,7 +16,7 @@ class Controller(threading.Thread):
             try:
                 self.check_path_existence()
                 self.inspect_path_items()
-                time.sleep(1)
+                time.sleep(0.001)
             except KeyboardInterrupt:
                 pass
 
