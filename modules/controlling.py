@@ -1,4 +1,5 @@
 from modules import common
+import sys
 import time
 import pathlib
 import platform
@@ -13,12 +14,12 @@ class Controller(threading.Thread):
 
     def run(self):
         while True:
-            try:
-                self.check_path_existence()
-                self.inspect_path_items()
-                time.sleep(0.001)
-            except KeyboardInterrupt:
-                pass
+            self.check_path_existence()
+            self.inspect_path_items()
+            time.sleep(0.001)
+            if self.display.terminate:
+                break
+        sys.exit()
 
     def check_path_existence(self):
         if not self.display.partitions and self.display.title is not None:

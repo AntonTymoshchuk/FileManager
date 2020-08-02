@@ -7,6 +7,7 @@ class Display:
         self.items = []
         self.names = None
         self.partitions = False
+        self.terminate = False
         self.selector = selection.Selector(self)
         self.controller = controlling.Controller(self)
         self.controller.start()
