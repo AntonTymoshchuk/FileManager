@@ -1,7 +1,5 @@
 # FileManager
 Console file manager for Windows, Linux, and MacOS.
-It was developed by me, Anton Tymoshchuk, after 16
-days of learning Python from zero.
 Picture "icons8-folder-96.png" is downloaded from
 https://icons8.com/ and it was converted to
 "icons8-folder-96.ico", using online converter
